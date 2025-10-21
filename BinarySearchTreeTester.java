@@ -3,6 +3,7 @@ package assign07;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -120,57 +121,56 @@ class BinarySearchTreeTester {
 	void testContainsAllContainsSome() {
 		tenToTwenty.add(1);
 		assertFalse(tenToTwenty.containsAll(listZeroToFour));
-		
 	}
 	
 	@Test
 	void testContainsAllContainsAll() {
-		
+		assertTrue(zeroToFour.containsAll(listZeroToFour));
 	}
 	
 	@Test
 	void testContainsAllContainsNone() {
-		
+		assertFalse(tenToTwenty.containsAll(listZeroToFour));
 	}
 	
 	@Test
 	void testContainsAllEmptyCollectionAsArgument() {
-		
+		assertTrue(zeroToFour.containsAll(emptyList));
 	}
 	
 	@Test
 	void testContainsAllEmptySetEmptyCollection() {
-		
+		assertTrue(emptyTree.containsAll(emptyList));
 	}
 	
 	@Test
 	void testFirstEmptySet() {
-		
+		assertThrows(NoSuchElementException.class, ()-> emptyTree.first());
 	}
 	
 	@Test
 	void testFirstReturnsSmallestElement() {
-		
+		assertEquals(0,zeroToFour.first() );
 	}
 	
 	@Test
 	void testIsEmptySetIsNotEmpty() {
-		
+		assertFalse(zeroToFour.isEmpty());
 	}
 	
 	@Test
 	void testIsEmptySetIsEmpty() {
-		
+		assertTrue(emptyTree.isEmpty());
 	}
 	
 	@Test
 	void testLastEmptySet() {
-		
+		assertThrows(NoSuchElementException.class, ()-> emptyTree.last());
 	}
 	
 	@Test
 	void testLastReturnsSmallestElement() {
-		
+		assertEquals(4,zeroToFour.last() );
 	}
 	
 	@Test
