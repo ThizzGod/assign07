@@ -14,6 +14,7 @@ class BinarySearchTreeTester {
 	void setUp() {
 		emptyTree = new BinarySearchTree<Integer>();
 		zeroToFour = new BinarySearchTree<Integer>();
+		tenToTwenty = new BinarySearchTree<Integer>();
 		
 		for (int i = 0; i < 5; i++) {
 			zeroToFour.add(i);
