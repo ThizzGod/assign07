@@ -27,16 +27,22 @@ class BinarySearchTreeTester {
 
 	@Test
 	void testBinarySearchTreeAddNewElement() {
+		assertTrue(emptyTree.add(0));
 		
 	}
 	
 	@Test
 	void testBinarySearchAddElementExists() {
-		
+		emptyTree.add(0);
+		assertFalse(emptyTree.add(0));
 	}
 	
 	@Test
 	void testElementsAreOrderedAfterAdd() {
+		zeroToFour.add(-6);
+		zeroToFour.add(7);
+		assertEquals(-6, zeroToFour.first());
+		assertEquals(7, zeroToFour.last());
 		
 	}
 	
