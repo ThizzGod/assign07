@@ -7,15 +7,26 @@ import org.junit.jupiter.api.Test;
 
 class BinarySearchTreeTester {
 	BinarySearchTree<Integer> emptyTree;
+	BinarySearchTree<Integer> zeroToFour;
+	BinarySearchTree<Integer> tenToTwenty; 
 
 	@BeforeEach
 	void setUp() {
 		emptyTree = new BinarySearchTree<Integer>();
+		zeroToFour = new BinarySearchTree<Integer>();
+		
+		for (int i = 0; i < 5; i++) {
+			zeroToFour.add(i);
+		}
+		
+		for (int i = 10; i <= 20; i++) {
+			tenToTwenty.add(i);
+		}
 	}
 
 	@Test
 	void testBinarySearchTreeAddNewElement() {
-
+		
 	}
 	
 	@Test
