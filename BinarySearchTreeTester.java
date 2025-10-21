@@ -8,12 +8,19 @@ import java.util.NoSuchElementException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Tester class for the Binary Search Tree
+ * 
+ * @author Max Barker and Josi Gac
+ * @version 10/21/25
+ */
 class BinarySearchTreeTester {
 	BinarySearchTree<Integer> emptyTree;
 	BinarySearchTree<Integer> zeroToFour;
 	BinarySearchTree<Integer> tenToTwenty; 
 	ArrayList<Integer> listZeroToFour;
 	ArrayList<Integer> emptyList;
+	ArrayList<Integer> someElements;
 
 	@BeforeEach
 	void setUp() {
@@ -21,6 +28,8 @@ class BinarySearchTreeTester {
 		zeroToFour = new BinarySearchTree<Integer>();
 		tenToTwenty = new BinarySearchTree<Integer>();
 		listZeroToFour = new ArrayList<Integer>();
+		emptyList = new ArrayList<Integer>();
+		someElements = new ArrayList<Integer>();
 		
 		for (int i = 0; i < 5; i++) {
 			zeroToFour.add(i);
@@ -121,106 +130,124 @@ class BinarySearchTreeTester {
 	void testContainsAllContainsSome() {
 		tenToTwenty.add(1);
 		assertFalse(tenToTwenty.containsAll(listZeroToFour));
-	}
-	
-	@Test
-	void testContainsAllContainsAll() {
-		assertTrue(zeroToFour.containsAll(listZeroToFour));
-	}
-	
-	@Test
-	void testContainsAllContainsNone() {
-		assertFalse(tenToTwenty.containsAll(listZeroToFour));
-	}
-	
-	@Test
-	void testContainsAllEmptyCollectionAsArgument() {
-		assertTrue(zeroToFour.containsAll(emptyList));
-	}
-	
-	@Test
-	void testContainsAllEmptySetEmptyCollection() {
-		assertTrue(emptyTree.containsAll(emptyList));
-	}
-	
-	@Test
-	void testFirstEmptySet() {
-		assertThrows(NoSuchElementException.class, ()-> emptyTree.first());
-	}
-	
-	@Test
-	void testFirstReturnsSmallestElement() {
-		assertEquals(0,zeroToFour.first() );
-	}
-	
-	@Test
-	void testIsEmptySetIsNotEmpty() {
-		assertFalse(zeroToFour.isEmpty());
-	}
-	
-	@Test
-	void testIsEmptySetIsEmpty() {
-		assertTrue(emptyTree.isEmpty());
-	}
-	
-	@Test
-	void testLastEmptySet() {
-		assertThrows(NoSuchElementException.class, ()-> emptyTree.last());
-	}
-	
-	@Test
-	void testLastReturnsSmallestElement() {
-		assertEquals(4,zeroToFour.last() );
-	}
-	
-	@Test
-	void testRemoveElementDoesNotExist() {
 		
 	}
 	
-	@Test
-	void testRemoveElementDoesExist() {
-		
-	}
+    @Test
+    void testContainsAllContainsAll() {
+        assertTrue(zeroToFour.containsAll(listZeroToFour));
+    }
+
+    @Test
+    void testContainsAllContainsNone() {
+        assertFalse(emptyTree.containsAll(listZeroToFour));
+    }
+
+    @Test
+    void testContainsAllEmptyCollectionAsArgument() {
+        assertTrue(zeroToFour.containsAll(emptyList)); 
+    }
+
+    @Test
+    void testContainsAllEmptySetEmptyCollection() {
+        assertTrue(emptyTree.containsAll(emptyList)); 
+    }
+	
+    @Test
+    void testFirstEmptySet() {
+        assertThrows(NoSuchElementException.class, () -> emptyTree.first());
+    }
+
+    @Test
+    void testFirstReturnsSmallestElement() {
+        assertEquals(0, zeroToFour.first());
+        tenToTwenty.add(-1);
+        assertEquals(-1, tenToTwenty.first());
+    }
+
+    @Test
+    void testIsEmptySetIsNotEmpty() {
+        assertFalse(zeroToFour.isEmpty());
+    }
+
+    @Test
+    void testIsEmptySetIsEmpty() {
+        assertTrue(emptyTree.isEmpty());
+    }
+
+    @Test
+    void testLastEmptySet() {
+    	assertThrows(NoSuchElementException.class, () -> emptyTree.last());
+    }
 	
 	@Test
-	void testRemoveEmptySet() {
-		
+	void testLastReturnsLargestElement() {
+	    assertEquals(4, zeroToFour.last());
+	    tenToTwenty.add(25);
+	    assertEquals(25, tenToTwenty.last());
 	}
 	
-	@Test
-	void testRemoveAllNoElementsExist() {
-		
-	}
+    @Test
+    void testRemoveElementDoesNotExist() {
+        assertFalse(zeroToFour.remove(10));
+        assertEquals(5, zeroToFour.size());
+    }
+
+    @Test
+    void testRemoveElementDoesExist() {
+        assertTrue(zeroToFour.remove(3));
+        assertFalse(zeroToFour.contains(3));
+        assertEquals(4, zeroToFour.size());
+    }
+
+    @Test
+    void testRemoveEmptySet() {
+        assertFalse(emptyTree.remove(5));
+    }
 	
-	@Test
-	void testRemoveAllSomeElementsExist() {
-		
-	}
+    @Test
+    void testRemoveAllNoElementsExist() {
+        assertFalse(zeroToFour.removeAll(tenToTwenty.toArrayList()));
+    }
+
+    @Test
+    void testRemoveAllSomeElementsExist() {
+        zeroToFour.add(10);
+        zeroToFour.add(11);
+        someElements.add(0);
+        someElements.add(10);
+        assertTrue(zeroToFour.removeAll(someElements));
+        assertFalse(zeroToFour.contains(0));
+        assertFalse(zeroToFour.contains(10));
+    }
+
+    @Test
+    void testRemoveAllAllElementsExist() {
+        assertTrue(zeroToFour.removeAll(listZeroToFour));
+        assertTrue(zeroToFour.isEmpty());
+    }	
 	
-	@Test
-	void testRemoveAllAllElementsExist() {
-		
-	}
-	
-	@Test
-	void testSizeEmptySet() {
-		
-	}
-	
-	@Test
-	void testSize() {
-		
-	}
-	
-	@Test
-	void testToArrayListEmptySet() {
-		
-	}
-	
-	@Test
-	void testToArrayListIsSorted() {
-		
-	}
+    @Test
+    void testSizeEmptySet() {
+        assertEquals(0, emptyTree.size());
+    }
+
+    @Test
+    void testSize() {
+        assertEquals(5, zeroToFour.size());
+        zeroToFour.add(6);
+        assertEquals(6, zeroToFour.size());
+    }
+
+    @Test
+    void testToArrayListEmptySet() {
+        assertEquals(0, emptyTree.toArrayList().size());
+    }
+
+    @Test
+    void testToArrayListIsSorted() {
+        ArrayList<Integer> sorted = zeroToFour.toArrayList();
+        assertEquals(listZeroToFour, sorted);
+    }
 }
 

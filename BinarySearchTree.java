@@ -4,7 +4,46 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.NoSuchElementException;
 
+/**
+ * This class contains the methods to create and edit a binary tree data structure.
+ * @param <Type> the type of element in the tree
+ * 
+ * @author Max Barker and Josi Gac
+ * @version 10/21/25
+ */
 public class BinarySearchTree<Type extends Comparable<? super Type>> implements SortedSet<Type> {
+	
+    private Node<Type> root;
+    private int size;
+	
+    /**
+     * Constructor for an empty tree
+     */
+    public BinarySearchTree() {
+        root = null;
+        size = 0;
+    }
+    
+	/**
+	 * Represents a single node in a tree
+	 * @param <E> the type of elements in the node
+	 */
+    private static class Node<E> {
+        E value;
+        Node<E> left;
+        Node<E> right;
+
+    	/**
+    	 * Creates a new node with the value given
+    	 * @param value the value to be stored in the node
+    	 */
+        Node(E value) {
+            this.value = value;
+            this.left = null;
+            this.right = null;
+        }
+    }
+    
 	/**
 	 * Ensures that this set contains the specified item.
 	 * 
@@ -122,8 +161,7 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 	 * Returns the number of items in this set.
 	 */
 	public int size() {
-		return 0;
-		
+		return size;
 	}
 
 	/**
