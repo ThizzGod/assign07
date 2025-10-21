@@ -2,6 +2,8 @@ package assign07;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -9,12 +11,14 @@ class BinarySearchTreeTester {
 	BinarySearchTree<Integer> emptyTree;
 	BinarySearchTree<Integer> zeroToFour;
 	BinarySearchTree<Integer> tenToTwenty; 
+	ArrayList<Integer> listZeroToFour;
 
 	@BeforeEach
 	void setUp() {
 		emptyTree = new BinarySearchTree<Integer>();
 		zeroToFour = new BinarySearchTree<Integer>();
 		tenToTwenty = new BinarySearchTree<Integer>();
+		listZeroToFour = new ArrayList<Integer>();
 		
 		for (int i = 0; i < 5; i++) {
 			zeroToFour.add(i);
@@ -22,6 +26,10 @@ class BinarySearchTreeTester {
 		
 		for (int i = 10; i <= 20; i++) {
 			tenToTwenty.add(i);
+		}
+
+		for (int i = 0; i < 5; i++) {
+			listZeroToFour.add(i);
 		}
 	}
 
@@ -48,7 +56,7 @@ class BinarySearchTreeTester {
 	
 	@Test
 	void testAddAllEmptyTree() {
-		
+		emptyTree.addAll(null);
 	}
 	
 	@Test
