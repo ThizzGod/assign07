@@ -3,7 +3,9 @@ package assign07;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.NoSuchElementException;
+import java.util.TreeSet;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,6 +20,7 @@ class BinarySearchTreeTester {
 	BinarySearchTree<Integer> emptyTree;
 	BinarySearchTree<Integer> zeroToFour;
 	BinarySearchTree<Integer> tenToTwenty; 
+	BinarySearchTree<Integer> addedInRandomOrder;
 	ArrayList<Integer> listZeroToFour;
 	ArrayList<Integer> emptyList;
 	ArrayList<Integer> someElements;
@@ -30,6 +33,7 @@ class BinarySearchTreeTester {
 		listZeroToFour = new ArrayList<Integer>();
 		emptyList = new ArrayList<Integer>();
 		someElements = new ArrayList<Integer>();
+		addedInRandomOrder = new BinarySearchTree<Integer>();
 		
 		for (int i = 0; i < 5; i++) {
 			zeroToFour.add(i);
@@ -42,6 +46,18 @@ class BinarySearchTreeTester {
 		for (int i = 0; i < 5; i++) {
 			listZeroToFour.add(i);
 		}
+		
+		//random order setup
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		for (int i = 0; i < 50; i++) {
+			list.add(i);
+		}
+		Collections.shuffle(list);
+		
+		for (int i = 0; i < 50; i++) { 
+			addedInRandomOrder.add(list.get(i));
+		}
+		
 	}
 
 	@Test
