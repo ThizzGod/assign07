@@ -286,4 +286,3 @@ class BinarySearchTreeTester {
         assertEquals(listZeroToFour, sorted);
     }
 }
-
