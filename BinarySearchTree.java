@@ -66,7 +66,7 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 	private boolean addRecursive(Node<Type> node, Type item) {
 		if (node.value.compareTo(item) == 0) {
 			return false;
-		} else if (node.value.compareTo(item) < 0) {
+		} else if (node.value.compareTo(item) > 0) {
 			if (node.left == null) {
 				node.left = new Node<Type>(item);
 				return true;
@@ -144,7 +144,7 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 		if (node.left == null) {
 			return node.value;
 		}
-		return firstRecursive(node);
+		return firstRecursive(node.left);
 	}
 
 	/**
