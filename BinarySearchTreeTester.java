@@ -173,6 +173,11 @@ class BinarySearchTreeTester {
     void testFirstEmptySet() {
         assertThrows(NoSuchElementException.class, () -> emptyTree.first());
     }
+    
+    @Test
+    void testFirstRandomAddOrder() {
+    	assertEquals(0, addedInRandomOrder.first());
+    }
 
     @Test
     void testFirstReturnsSmallestElement() {
@@ -201,6 +206,11 @@ class BinarySearchTreeTester {
 	    assertEquals(4, zeroToFour.last());
 	    tenToTwenty.add(25);
 	    assertEquals(25, tenToTwenty.last());
+	}
+	
+	@Test
+	void testLastRandomAddOrder() {
+		assertEquals(49, addedInRandomOrder.last());
 	}
 	
     @Test
