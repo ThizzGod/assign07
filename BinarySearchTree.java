@@ -32,6 +32,7 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
         E value;
         Node<E> left;
         Node<E> right;
+        Node<E> parent;
 
     	/**
     	 * Creates a new node with the value given
@@ -41,6 +42,7 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
             this.value = value;
             this.left = null;
             this.right = null;
+            this.parent = null;
         }
     }
     
