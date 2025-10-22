@@ -70,6 +70,7 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 		} else if (node.value.compareTo(item) > 0) {
 			if (node.left == null) {
 				node.left = new Node<Type>(item);
+				node.left.parent = node;
 				size++;
 				return true;
 			}
@@ -77,6 +78,7 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 		} else {
 			if (node.right == null) {
 				node.right = new Node<Type>(item);
+				node.right.parent = node;
 				size++;
 				return true;
 			}
