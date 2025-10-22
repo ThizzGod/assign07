@@ -66,22 +66,19 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 	private boolean addRecursive(Node<Type> node, Type item) {
 		if (node.value.compareTo(item) == 0) {
 			return false;
-		}
-		if (node.value.compareTo(item) < 0) {
+		} else if (node.value.compareTo(item) < 0) {
 			if (node.left == null) {
 				node.left = new Node<Type>(item);
 				return true;
 			}
-			addRecursive(node.left, item);
-		}
-		if (node.value.compareTo(item) > 0) {
+			return addRecursive(node.left, item);
+		} else {
 			if (node.right == null) {
 				node.right = new Node<Type>(item);
 				return true;
 			}
-			addRecursive(node.right, item);
+			return addRecursive(node.right, item);
 		}
-		return false;
 	}
 
 	/**
@@ -137,8 +134,17 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 	 * @throws NoSuchElementException if the set is empty
 	 */
 	public Type first() throws NoSuchElementException {
-		return null;
-		
+		if (root == null) {
+			throw new NoSuchElementException();
+		}
+		return firstRecursive(root);
+	}
+	
+	private Type firstRecursive(Node<Type> node) {
+		if (node.left == null) {
+			return node.value;
+		}
+		return firstRecursive(node);
 	}
 
 	/**

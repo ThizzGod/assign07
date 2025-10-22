@@ -61,7 +61,7 @@ class BinarySearchTreeTester {
 	}
 
 	@Test
-	void testBinarySearchTreeAddNewElement() {
+	void testBinarySearchTreeAddNewElementEmptyTree() {
 		assertTrue(emptyTree.add(0));
 	}
 	
@@ -69,6 +69,16 @@ class BinarySearchTreeTester {
 	void testBinarySearchAddElementExists() {
 		emptyTree.add(0);
 		assertFalse(emptyTree.add(0));
+	}
+	
+	@Test
+	void testBinarySearchAddElementNotEmptyTree() {
+		assertTrue(zeroToFour.add(5));
+	}
+	
+	@Test
+	void testAddElementTreeWithRandomlyAddedOrder() {
+		assertTrue(addedInRandomOrder.add(51));
 	}
 	
 	@Test
