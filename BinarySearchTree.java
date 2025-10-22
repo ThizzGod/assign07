@@ -95,8 +95,16 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 	 *         returns false
 	 */
 	public boolean addAll(Collection<? extends Type> items) {
-		return false;
-		
+		int previousSize = size;
+		for (Type item : items) {
+			if (!this.contains(item)) {
+				this.add(item);
+			}
+		}
+		if (size > previousSize) {
+			return true;
+		}
+		return false;	
 	}
 
 	/**
@@ -117,9 +125,29 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 	 *         otherwise, returns false
 	 */
 	public boolean contains(Type item) {
-		return false;
-		
+		return containsRecursive(root, item);
 	}
+	
+	/**
+	 * 
+	 * @param node
+	 * @param item
+	 * @return
+	 */
+    private boolean containsRecursive(Node<Type> node, Type item) {
+        if (node == null) {
+            return false;
+        }
+        if (item.compareTo(node.value) == 0) {
+            return true;
+        }
+        else if (item.compareTo(node.value) < 0) {
+            return containsRecursive(node.left, item);
+        } 
+        else {
+            return containsRecursive(node.right, item);
+        }
+    }
 
 	/**
 	 * Determines if for each item in the specified collection, there is an item in
@@ -130,8 +158,12 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 	 *         in this set that is equal to it; otherwise, returns false
 	 */
 	public boolean containsAll(Collection<? extends Type> items) {
-		return false;
-		
+		for (Type item : items) {
+			if (!this.contains(item)) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	/**
@@ -146,6 +178,11 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 		return firstRecursive(root);
 	}
 	
+	/**
+	 * 
+	 * @param node
+	 * @return
+	 */
 	private Type firstRecursive(Node<Type> node) {
 		if (node.left == null) {
 			return node.value;
@@ -175,6 +212,11 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 		return lastRecursive(root);
 	}
 	
+	/**
+	 * 
+	 * @param node
+	 * @return
+	 */
 	private Type lastRecursive(Node<Type> node) {
 		if (node.right == null) {
 			return node.value;
@@ -220,7 +262,22 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 	 * order.
 	 */
 	public ArrayList<Type> toArrayList() {
-		return null;
-		
+        ArrayList<Type> list = new ArrayList<>();
+        fillInArrayListRecursive(root, list);
+        return list;
 	}
+	
+	/**
+	 * 
+	 * @param node
+	 * @param list
+	 */
+    private void fillInArrayListRecursive(Node<Type> node, ArrayList<Type> list) {
+        if (node == null) {
+            return;
+        }
+        fillInArrayListRecursive(node.left, list);
+        list.add(node.value);
+        fillInArrayListRecursive(node.right, list);
+    }
 }

@@ -11,7 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * Tester class for the Binary Search Tree
+ * Tester class for the Binary Search Tree Class
  * 
  * @author Max Barker and Josi Gac
  * @version 10/21/25
