@@ -3,6 +3,7 @@ package assign07;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.NoSuchElementException;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * This class contains the methods to create and edit a binary tree data structure.
@@ -54,7 +55,32 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 	 *         the input item was actually inserted); otherwise, returns false
 	 */
 	public boolean add(Type item) {
-		
+		if (root == null) {
+			Node<Type> rootNode = new Node<>(item);
+			root = rootNode;
+			return true;
+		}
+		return addRecursive(root, item);
+	}
+	
+	private boolean addRecursive(Node<Type> node, Type item) {
+		if (node.value.compareTo(item) == 0) {
+			return false;
+		}
+		if (node.value.compareTo(item) < 0) {
+			if (node.left == null) {
+				node.left = new Node<Type>(item);
+				return true;
+			}
+			addRecursive(node.left, item);
+		}
+		if (node.value.compareTo(item) > 0) {
+			if (node.right == null) {
+				node.right = new Node<Type>(item);
+				return true;
+			}
+			addRecursive(node.right, item);
+		}
 		return false;
 	}
 
