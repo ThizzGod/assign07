@@ -75,7 +75,7 @@ public class SpellChecker {
 		List<String> misspelledWords = new ArrayList<>();
 
 		for (String word : wordsToCheck) {
-			if (!dictionary.contains(word))
+			if (!dictionary.contains(word)  && !misspelledWords.contains(word))
 				misspelledWords.add(word);
 		}
 		return misspelledWords;
