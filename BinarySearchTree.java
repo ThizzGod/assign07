@@ -3,7 +3,6 @@ package assign07;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.NoSuchElementException;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * This class contains the methods to create and edit a binary tree data structure.
@@ -27,6 +26,7 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
     
 	/**
 	 * Represents a single node in a tree
+	 * 
 	 * @param <E> the type of elements in the node
 	 */
     private static class Node<E> {
@@ -37,6 +37,7 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 
     	/**
     	 * Creates a new node with the value given
+    	 * 
     	 * @param value the value to be stored in the node
     	 */
         Node(E value) {
@@ -64,6 +65,13 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 		return addRecursive(root, item);
 	}
 	
+	/**
+	 * Helper method for adding an item recursively to the correct place in the tree
+	 * 
+	 * @param node the node being looked at
+	 * @param item the item to add
+	 * @return true if the item was added, false if not
+	 */
 	private boolean addRecursive(Node<Type> node, Type item) {
 		if (node.value.compareTo(item) == 0) {
 			return false;
@@ -129,19 +137,20 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 	}
 	
 	/**
+	 * Helper method to recursively check if an item exists in the tree
 	 * 
-	 * @param node
-	 * @param item
-	 * @return
+	 * @param node the node being looked at
+	 * @param item the item to find
+	 * @return true if the item was found false if not
 	 */
     private boolean containsRecursive(Node<Type> node, Type item) {
         if (node == null) {
             return false;
         }
-        if (item.compareTo(node.value) == 0) {
+        if (node.value.compareTo(item) == 0) {
             return true;
         }
-        else if (item.compareTo(node.value) < 0) {
+        else if (node.value.compareTo(item) > 0) {
             return containsRecursive(node.left, item);
         } 
         else {
@@ -179,9 +188,10 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 	}
 	
 	/**
+	 * Helper method to find the smallest value recursively
 	 * 
-	 * @param node
-	 * @return
+	 * @param node the node being looked at
+	 * @return the smallest item's value
 	 */
 	private Type firstRecursive(Node<Type> node) {
 		if (node.left == null) {
@@ -213,9 +223,10 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 	}
 	
 	/**
+	 * Helper method to find the largest value recursively
 	 * 
-	 * @param node
-	 * @return
+	 * @param node the node being looked at
+	 * @return the largest item's value
 	 */
 	private Type lastRecursive(Node<Type> node) {
 		if (node.right == null) {
@@ -232,8 +243,114 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 	 *         the input item was actually removed); otherwise, returns false
 	 */
 	public boolean remove(Type item) {
-		return false;
+		if (root == null) {
+			return false;
+		}
 		
+		return removeRecursive(root, item);
+	}
+	
+	/**
+	 * Helper method to recursively remove a node from the tree
+	 * 
+	 * @param node the node being looked at
+	 * @param item the item to remove
+	 * @return true if removed false if not
+	 */
+	private boolean removeRecursive(Node<Type> node, Type item) {
+		if (node.value.compareTo(item) == 0) {
+			if (node.left == null && node.right == null) {
+				size--;
+				return removeLeaf(node);
+			} else if (node.left != null  && node.right != null) {
+				size --;
+				return removeTwoChildren(node, item);
+			} else {
+				size--;
+				return removeOneChild(node);
+			}
+		}  else if (node.value.compareTo(item) > 0) {
+			if (node.left == null) return false;
+			return removeRecursive(node.left, item);
+		} else {
+			if (node.right == null) return false;
+			return removeRecursive(node.right, item);
+		}
+	}
+	
+	/**
+	 * Removes a node that has no children
+	 * 
+	 * @param node the node to remove
+	 * @return true once the leaf is removed
+	 */
+	private boolean removeLeaf(Node<Type> node) {
+		node = null;
+		return true;
+	}
+	
+	/**
+	 * Removes a node that has only one child
+	 * 
+	 * @param node the node to remove
+	 * @return true once it is removed
+	 */
+	private boolean removeOneChild(Node<Type> node) {
+		if (node.left == null) {
+			if (node.value.equals(root.value)) {
+				root = node.right;
+			} else {
+				node.parent.right = node.right;
+			}
+			return true;
+		} else {
+			if (node.value.equals(root.value)) {
+				root = node.left;
+			} else {
+				node.parent.left = node.left;
+			}
+			return true;
+		}
+	}
+	
+	/**
+	 * Removes a node that has two children by replacing it with its successor
+	 * 
+	 * @param node the node to remove
+	 * @param item the value of the node being removed
+	 * @return true once it is removed
+	 */
+	private boolean removeTwoChildren(Node<Type> node, Type item) {
+		
+		if (!this.contains(item)) {
+			return false;
+		} else {
+			Node<Type> successor = findSuccessor(node);
+			
+			node.value = successor.value;
+			
+			if (successor.left != null || successor.right != null) {
+				removeOneChild(successor);
+				return true;
+			} else {
+				removeLeaf(successor);
+				return true;
+			}
+		}
+	}
+	
+	/**
+	 * Finds the successor of a node
+	 * 
+	 * @param node the node whose successor should be found
+	 * @return the successor node
+	 */
+	private Node<Type> findSuccessor(Node<Type> node) {
+		Node<Type> start = node.right;
+		while (start.left != null) {
+			start = start.left;
+		}
+		return start;
 	}
 
 	/**
@@ -246,8 +363,14 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 	 *         returns false
 	 */
 	public boolean removeAll(Collection<? extends Type> items) {
-		return false;
-		
+		int formerSize = size;
+		for (Type item : items) {
+			remove(item);
+		}
+		if (size < formerSize) {
+			return true;
+		}
+		return false;	
 	}
 
 	/**
@@ -268,9 +391,10 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 	}
 	
 	/**
+	 * Helper method to do an in order traversal to fill the list with items
 	 * 
-	 * @param node
-	 * @param list
+	 * @param node the current node 
+	 * @param list the list to fill with the items
 	 */
     private void fillInArrayListRecursive(Node<Type> node, ArrayList<Type> list) {
         if (node == null) {
